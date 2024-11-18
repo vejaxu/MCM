@@ -1,8 +1,9 @@
 import torch
 import torch.nn as nn
-import numpy as np 
 
 
+# 使用多个子网络(masks)对输入数据进行处理
+# 生成处理后的数据以及对应的掩码
 class Generator(nn.Module):
     def __init__(self, model, config):
         super(Generator, self).__init__()
@@ -29,10 +30,10 @@ class SingleNet(nn.Module):
         net = []
         input_dim = x_dim
         for _ in range(num_layers-1):
-            net.append(nn.Linear(input_dim,h_dim,bias=False))
+            net.append(nn.Linear(input_dim, h_dim, bias=False))
             net.append(nn.ReLU())
             input_dim= h_dim
-        net.append(nn.Linear(input_dim,x_dim,bias=False))
+        net.append(nn.Linear(input_dim, x_dim, bias=False))
         self.net = nn.Sequential(*net)
 
     def forward(self, x):

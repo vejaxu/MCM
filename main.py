@@ -38,17 +38,14 @@ if __name__ == "__main__":
     mean_mse_auc , mean_mse_pr , mean_mse_f1 = np.mean(mse_rauc), np.mean(mse_ap), np.mean(mse_f1)
 
     print('##########################################################################')
-    print("mse: average AUC-ROC: %.4f  average AUC-PR: %.4f"
-          % (mean_mse_auc, mean_mse_pr))
+    print("mse: average AUC-ROC: %.4f  average AUC-PR: %.4f"% (mean_mse_auc, mean_mse_pr))
     print("mse: average f1: %.4f" % (mean_mse_f1))
     results_name = './results/' + model_config['dataset_name'] + '.txt'
 
     with open(results_name,'a') as file:
-        file.write("epochs: %d lr: %.4f gamma: %.2f masks: %d lambda: %.1f " % (
-            model_config['epochs'], model_config['learning_rate'], model_config['sche_gamma'], model_config['mask_num'], model_config['lambda']))
+        file.write("epochs: %d lr: %.4f gamma: %.2f masks: %d lambda: %.1f " % (model_config['epochs'], model_config['learning_rate'], model_config['sche_gamma'], model_config['mask_num'], model_config['lambda']))
         file.write('\n')
         file.write("de_layer: %d  hidden_dim: %d z_dim: %d mask_layer: %d" % (model_config['de_nlayers'], model_config['hidden_dim'], model_config['z_dim'], model_config['mask_nlayers']))
         file.write('\n')
-        file.write("mse: average AUC-ROC: %.4f  average AUC-PR: %.4f average f1: %.4f" % (
-            mean_mse_auc, mean_mse_pr, mean_mse_f1))
+        file.write("mse: average AUC-ROC: %.4f  average AUC-PR: %.4f average f1: %.4f" % (mean_mse_auc, mean_mse_pr, mean_mse_f1))
         file.write('\n')

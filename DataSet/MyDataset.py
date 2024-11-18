@@ -106,7 +106,6 @@ def train_test_split(inliers, outliers):
     return train_data, train_label, test_data, test_label
 
 
-
-if __name__ == '__main__':
+""" if __name__ == '__main__':
     train_data, train_label, test_data, test_label = KDD_train_test_split('../Data/')
-    print(train_data[0])
+    print(train_data[0]) """

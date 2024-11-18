@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.autograd import Variable
+
 from Model.MaskNets import MultiNets, Generator
 
 
@@ -19,26 +19,26 @@ class MCM(nn.Module):
         encoder = []
         encoder_dim = self.data_dim
         for _ in range(self.en_nlayers-1):
-            encoder.append(nn.Linear(encoder_dim,self.hidden_dim,bias=False))
+            encoder.append(nn.Linear(encoder_dim, self.hidden_dim, bias=False))
             encoder.append(nn.LeakyReLU(0.2, inplace=True))
             encoder_dim = self.hidden_dim
 
-        encoder.append(nn.Linear(encoder_dim,self.z_dim,bias=False))
+        encoder.append(nn.Linear(encoder_dim, self.z_dim, bias=False))
         self.encoder = nn.Sequential(*encoder)
 
         decoder = []
         decoder_dim = self.z_dim
         for _ in range(self.de_nlayers-1):
-            decoder.append(nn.Linear(decoder_dim,self.hidden_dim,bias=False))
+            decoder.append(nn.Linear(decoder_dim, self.hidden_dim,bias=False))
             decoder.append(nn.LeakyReLU(0.2, inplace=True))
             decoder_dim = self.hidden_dim
 
-        decoder.append(nn.Linear(decoder_dim,self.data_dim,bias=False))
+        decoder.append(nn.Linear(decoder_dim, self.data_dim, bias=False))
         self.decoder = nn.Sequential(*decoder)
 
     def forward(self, x_input):
-        x_mask, masks = self.maskmodel(x_input)
-        B, T, D = x_mask.shape
+        x_mask, masks = self.maskmodel(x_input) # Generator(x_input)
+        B, T, D = x_mask.shape # batch_size, mask_num, dim
         x_mask = x_mask.reshape(B*T, D)
         z = self.encoder(x_mask)
         x_pred = self.decoder(z)

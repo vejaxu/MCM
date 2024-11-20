@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-
+# self.maskmodel = Generator(MultiNets(), model_config)
 # 使用多个子网络(masks)对输入数据进行处理
 # 生成处理后的数据以及对应的掩码
 class Generator(nn.Module):
@@ -29,6 +29,7 @@ class SingleNet(nn.Module):
         super(SingleNet, self).__init__()
         net = []
         input_dim = x_dim
+        # 上一层的输出是下一层的输入
         for _ in range(num_layers-1):
             net.append(nn.Linear(input_dim, h_dim, bias=False))
             net.append(nn.ReLU())
@@ -43,7 +44,5 @@ class SingleNet(nn.Module):
 
 class MultiNets():
     def _make_nets(self, x_dim, mask_nlayers, mask_num):
-        multinets = nn.ModuleList(
-            [SingleNet(x_dim, x_dim, mask_nlayers) for _ in range(mask_num)])
+        multinets = nn.ModuleList([SingleNet(x_dim, x_dim, mask_nlayers) for _ in range(mask_num)])
         return multinets
-

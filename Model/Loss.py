@@ -23,11 +23,11 @@ class LossFunction(nn.Module):
 
 
 class DiversityMask(nn.Module):
-    def __init__(self,temperature=0.1):
+    def __init__(self, temperature=0.1):
         super(DiversityMask, self).__init__()
         self.temp = temperature
 
-    def forward(self,z,eval=False):
+    def forward(self, z, eval=False):
         z = F.normalize(z, p=2, dim=-1)
         batch_size, mask_num, z_dim = z.shape
         sim_matrix = torch.exp(torch.matmul(z, z.permute(0, 2, 1) / self.temp))

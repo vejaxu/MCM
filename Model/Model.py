@@ -41,6 +41,7 @@ class MCM(nn.Module):
         # then we can calculate the reconstruction loss
 
     def forward(self, x_input):
+        # print(f"MCM input shape: {x_input.shape}")
         x_mask, masks = self.maskmodel(x_input) # Generator(x_input)
         # x_mask shape (x_input[0], num_masks, x_input[-1])
         B, T, D = x_mask.shape # batch_size, mask_num, dim

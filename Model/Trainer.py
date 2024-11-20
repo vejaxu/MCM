@@ -27,6 +27,8 @@ class Trainer(object):
         for epoch in range(epochs):
             for step, (x_input, y_label) in enumerate(self.train_loader):
                 x_input = x_input.to(self.device)
+                # print(f"step {step} x_input shape: {x_input.shape}")
+                # print(f"step {step} y_label: {y_label.shape}")
                 x_pred, z, masks = self.model(x_input)
                 loss, mse, divloss = self.loss_fuc(x_input, x_pred, masks)
                 optimizer.zero_grad()

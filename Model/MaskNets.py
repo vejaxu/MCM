@@ -12,9 +12,10 @@ class Generator(nn.Module):
         self.device = config['device']
 
     def forward(self, x):
+        # print(f"input shape: {x.shape}")
         x = x.type(torch.FloatTensor).to(self.device)
         x_T = torch.empty(x.shape[0], self.mask_num, x.shape[-1]).to(x)
-        print(f"initialize x_T shape: {x_T.shape}")
+        # print(f"initialize x_T shape: {x_T.shape}")
         # initialize an empty tensor
         
         masks = []

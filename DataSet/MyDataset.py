@@ -58,9 +58,11 @@ class MatDataset(Dataset):
         train_data, train_label, test_data, test_label = train_test_split(inliers, outliers)
         if mode == 'train':
             self.data = torch.Tensor(train_data)
+            print(f"{dataset_name} train data shape: {self.data.shape}")
             self.targets =torch.Tensor(train_label)
         else:
             self.data = torch.Tensor(test_data)
+            print(f"{dataset_name} test data shape: {test_data.shape}")
             self.targets = torch.Tensor(test_label)
 
     def __getitem__(self, item):

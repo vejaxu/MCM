@@ -16,8 +16,9 @@ class LossFunction(nn.Module):
         sub_result = x_pred - x_input
         mse = torch.norm(sub_result, p=2, dim=2)
         mse_score = torch.mean(mse, dim=1, keepdim=True)
-        e = torch.mean(mse_score)
-        divloss = self.divloss(masks)
+        e = torch.mean(mse_score) # reconstruction loss
+        
+        divloss = self.divloss(masks) # diversity loss
         loss = torch.mean(e) + self.lamb*torch.mean(divloss)
         return loss, torch.mean(e), torch.mean(divloss)
 
